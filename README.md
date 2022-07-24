@@ -2,18 +2,16 @@
 
 **Table of contents**
 
-- [C Data Structure Library](#c-data-structure-library)
+- [Java Data Structure Library](#java-data-structure-library)
   - [Roadmap](#roadmap)
 
 ***
 
-# C Data Structure Library
+# Java Data Structure Library
 
 The present repository contains an implementation of some of the most common
-data structures we use for programming, implemented in the C programming
+data structures we use for programming, implemented in the Java programming
 language.
-
-Currently, only heaps and lists are implemented ([roadmap](#roadmap)).
 
 ## Roadmap
 
@@ -23,7 +21,7 @@ Currently, only heaps and lists are implemented ([roadmap](#roadmap)).
     - [ ] Map
     - [ ] Binary Tree
 - [ ] External (in file)
-    - [ ] src.Heap
+    - [ ] Heap
     - [ ] List
     - [ ] Map
     - [ ] Binary Tree
