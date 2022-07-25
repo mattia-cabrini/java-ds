@@ -1,4 +1,4 @@
-package src;
+package com.mattiacabrini.javads;
 
 class ListNode<T> {
     private final T i;

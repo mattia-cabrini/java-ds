@@ -1,4 +1,4 @@
-package src;
+package com.mattiacabrini.javads;
 
 public class Primes {
     private static final int []primes = {

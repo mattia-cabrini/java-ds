@@ -1,8 +1,8 @@
-package src.test;
+package com.mattiacabrini.javads.test;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import src.List;
+import com.mattiacabrini.javads.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

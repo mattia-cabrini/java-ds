@@ -1,11 +1,11 @@
-package src.test;
+package com.mattiacabrini.javads.test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import src.Map;
-import src.Pair;
-import src.Primes;
+import com.mattiacabrini.javads.Map;
+import com.mattiacabrini.javads.Pair;
+import com.mattiacabrini.javads.Primes;
 
 import static org.junit.jupiter.api.Assertions.*;
 
