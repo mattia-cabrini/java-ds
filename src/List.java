@@ -1,58 +1,13 @@
 package src;
 
-public class List<T> {
-    private class Node {
-        private final T i;
-        private Node next;
-        private Node prev;
+import java.util.Iterator;
 
-        public Node(T i, Node next) {
-            this.prev = null;
-            this.i = i;
-            this.next = next;
-        }
-
-        public Node(Node prev, T i, Node next) {
-            this.prev = prev;
-            this.i = i;
-            this.next = next;
-        }
-
-        public Node(T i) {
-            this.i = i;
-            this.next = null;
-        }
-
-        public T getItem() {
-            return this.i;
-        }
-
-        public boolean hasNext() {
-            return this.next != null;
-        }
-
-        public Node next() {
-            return this.next;
-        }
-
-        public void setNext(Node node) {
-            this.next = node;
-        }
-
-        public Node prev() {
-            return this.prev;
-        }
-
-        public void setPrev(Node prev) {
-            this.prev = prev;
-        }
-    }
-
+public class List<T> implements Iterable<T> {
     int count;
-    private Node first;
-    private Node last;
+    private ListNode<T> first;
+    private ListNode<T> last;
 
-    Node selectedCache;
+    ListNode<T> selectedCache;
     int selectedIndex;
 
     public List() {
@@ -65,13 +20,13 @@ public class List<T> {
 
     public void emplaceBack(T i) {
         if (last == null) {
-            first = new Node(i);
+            first = new ListNode<>(i);
             last = first;
 
             selectedIndex = 0;
             selectedCache = this.first;
         } else {
-            last.setNext(new Node(last, i, null));
+            last.setNext(new ListNode<>(last, i, null));
             last = last.next();
         }
 
@@ -82,15 +37,15 @@ public class List<T> {
         if (last == null) {
             emplaceBack(i);
         } else {
-            first = new Node(null, i, first);
+            first = new ListNode<>(null, i, first);
             first.next().setPrev(first);
             count++;
             selectedIndex++;
         }
     }
 
-    public Node searchN(T i) {
-        for (Node cur = first; cur != null; cur = cur.next())
+    public ListNode<T> searchN(T i) {
+        for (ListNode<T> cur = first; cur != null; cur = cur.next())
             if (cur.getItem().equals(i))
                 return cur;
 
@@ -99,7 +54,7 @@ public class List<T> {
 
 
     public boolean delete(T i) {
-        Node target = searchN(i);
+        ListNode<T> target = searchN(i);
 
         if (target != null && target == last) {
             popBack();
@@ -114,21 +69,21 @@ public class List<T> {
     }
 
     public boolean search(T i) {
-        Node target = searchN(i);
+        ListNode<T> target = searchN(i);
         return target != null;
     }
 
     public T pop() {
         T i = null;
 
-        if (this.first != null) {
-            i = this.first.getItem();
-            this.first = this.first.next();
+        if (first != null) {
+            i = first.getItem();
+            first = first.next();
 
-            if (this.first == null)
-                this.last = null;
+            if (first == null)
+                last = null;
 
-            this.count--;
+            count--;
         }
 
         return i;
@@ -174,5 +129,10 @@ public class List<T> {
             selectedCache = selectedCache.next();
 
         return selectedCache.getItem();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ListIterator<T>(this, 0);
     }
 }

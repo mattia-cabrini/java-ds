@@ -160,4 +160,15 @@ public class ListTest {
 
         assertFalse(list.delete(0));
     }
+
+    @Test
+    void iterable() {
+        int i = 0;
+        fullListEmplace();
+
+        for(Integer jx: list) {
+            assertEquals(i, jx);
+            i++;
+        }
+    }
 }
