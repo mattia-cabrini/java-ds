@@ -1,4 +1,4 @@
-package src;
+package com.mattiacabrini.javads;
 
 class MapNode<K, V> {
     public K key;

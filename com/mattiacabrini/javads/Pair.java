@@ -1,4 +1,4 @@
-package src;
+package com.mattiacabrini.javads;
 
 public class Pair<A, B> {
     public A a;

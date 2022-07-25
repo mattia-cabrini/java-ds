@@ -1,4 +1,4 @@
-package src;
+package com.mattiacabrini.javads;
 
 import java.util.Iterator;
 

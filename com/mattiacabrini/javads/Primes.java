@@ -1,4 +1,4 @@
-package src;
+package com.mattiacabrini.javads;
 
 public class Primes {
     private static final int []primes = {
@@ -100,9 +100,5 @@ public class Primes {
 
     public static int get(int i) {
         return primes[i];
-    }
-
-    public static int getCount() {
-        return primes.length;
     }
 }
