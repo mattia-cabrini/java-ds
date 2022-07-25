@@ -1,11 +1,14 @@
 package com.mattiacabrini.javads.test;
 
+import com.mattiacabrini.javads.MapIterator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.mattiacabrini.javads.Map;
 import com.mattiacabrini.javads.Pair;
 import com.mattiacabrini.javads.Primes;
+
+import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -73,9 +76,71 @@ public class TestMap {
         fullMap();
 
         for(Pair<Integer, String> jx: map) {
-            assertEquals(i, jx.a);
-            assertEquals(Integer.toString(i), jx.b);
-            assertEquals(jx.b, map.get(jx.a));
+            verifyJX(i, jx);
+            i++;
+        }
+
+        assertEquals(i, max);
+    }
+
+    private void verifyJX(int i, Pair<Integer, String> jx) {
+        assertEquals(Integer.toString(i), jx.b);
+        assertEquals(jx.b, map.get(jx.a));
+    }
+
+    @Test
+    void iterableManualMode() {
+        int i = 0;
+        fullMap();
+
+        MapIterator<Integer, String> iterator = map.iterator();
+
+        while (iterator.hasNext()) {
+            verifyExtractedElement(iterator);
+            i++;
+        }
+
+        assertEquals(i, max);
+    }
+
+    @Test
+    void mapAddAndGetNotFull() {
+        int i = 0;
+
+        map.put(3, "3");
+        map.put(3+Primes.get(0), "£");
+
+        assertEquals("£", map.get(3+Primes.get(0)));
+    }
+
+    @Test
+    void mapGetNotInThere() {
+        max = Primes.get(0);
+        fullMap();
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> map.get(3+Primes.get(0))
+        );
+    }
+
+    private void verifyExtractedElement(MapIterator<Integer, String> iterator) {
+        Pair<Integer, String> jx = iterator.next();
+        verifyJX(jx.a, jx);
+    }
+
+    @Test
+    void iterableManualModeNotFull() {
+        int i = 0;
+        max = 19;
+
+        for (int j = 0; j < 2*max; j += 2) {
+            map.put(j, Integer.toString(j));
+        }
+
+        MapIterator<Integer, String> iterator = map.iterator();
+
+        while (iterator.hasNext()) {
+            verifyExtractedElement(iterator);
             i++;
         }
 

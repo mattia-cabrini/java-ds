@@ -1,5 +1,6 @@
 package com.mattiacabrini.javads.test;
 
+import com.mattiacabrini.javads.ListIterator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.mattiacabrini.javads.List;
@@ -142,13 +143,11 @@ public class TestList {
     }
 
     @Test
-    void addAndDelete() {
+    void addAndDeleteBack() {
         fullListEmplace();
 
         for (int i = max - 1; i >= 0; --i) {
-            assertTrue(list.search(i));
-            assertTrue(list.delete(i));
-            assertFalse(list.search(i));
+            deleteAndCheckOnListItem(i);
             assertEquals(i, list.getCount());
 
             for (int j = i - 1; j >= 0; --j) {
@@ -161,11 +160,61 @@ public class TestList {
     }
 
     @Test
+    void addAndDeleteFront() {
+        fullListEmplace();
+
+        for (int i = 0; i < max; ++i) {
+            deleteAndCheckOnListItem(i);
+            assertEquals(max - i - 1, list.getCount());
+
+            for (int j = 0; j < max - i - 1; ++j) {
+                Integer selected = list.select(j);
+                assertEquals(j + i + 1, selected);
+            }
+        }
+
+        assertFalse(list.delete(0));
+    }
+
+    @Test
+    void addAndDeleteMiddle() {
+        int offset = 10;
+        fullListEmplace();
+
+        for (int i = offset; i < max - 10*offset; ++i) {
+            deleteAndCheckOnListItem(i);
+            assertEquals(max - i - 1 + offset, list.getCount());
+        }
+
+        assertFalse(list.delete(offset));
+    }
+
+    private void deleteAndCheckOnListItem(int i) {
+        assertTrue(list.search(i));
+        assertTrue(list.delete(i));
+        assertFalse(list.search(i));
+    }
+
+    @Test
     void iterable() {
         int i = 0;
         fullListEmplace();
 
         for(Integer jx: list) {
+            assertEquals(i, jx);
+            i++;
+        }
+    }
+
+    @Test
+    void iterableManualMode() {
+        int i = 0, jx;
+        fullListEmplace();
+
+        ListIterator<Integer> iterator = list.iterator();
+
+        while(iterator.hasNext()) {
+            jx = iterator.next();
             assertEquals(i, jx);
             i++;
         }

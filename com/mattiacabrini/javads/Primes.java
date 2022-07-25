@@ -101,8 +101,4 @@ public class Primes {
     public static int get(int i) {
         return primes[i];
     }
-
-    public static int getCount() {
-        return primes.length;
-    }
 }

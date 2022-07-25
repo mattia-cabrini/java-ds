@@ -63,9 +63,17 @@ public class List<T> implements Iterable<T> {
         } else if (target != null) {
             target.prev().setNext(target.next());
             target.next().setPrev(target.prev());
+            this.count--;
         }
 
+        resetSelectCache();
+
         return target != null;
+    }
+
+    private void resetSelectCache() {
+        selectedIndex = 0;
+        selectedCache = this.first;
     }
 
     public boolean search(T i) {
@@ -82,6 +90,8 @@ public class List<T> implements Iterable<T> {
 
             if (first == null)
                 last = null;
+            else
+                first.setPrev(null);
 
             count--;
         }
@@ -102,6 +112,9 @@ public class List<T> implements Iterable<T> {
                 first = null;
 
             this.count--;
+
+            if (this.count == 0)
+                this.first = this.last;
         }
 
         return i;
@@ -132,7 +145,7 @@ public class List<T> implements Iterable<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return new ListIterator<T>(this, 0);
+    public ListIterator<T> iterator() {
+        return new ListIterator<>(this, 0);
     }
 }

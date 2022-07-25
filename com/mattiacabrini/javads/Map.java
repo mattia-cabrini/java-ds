@@ -1,5 +1,6 @@
 package com.mattiacabrini.javads;
 
+import java.awt.geom.PathIterator;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -39,7 +40,7 @@ public class Map<K, V> implements Iterable<Pair<K, V>> {
     }
 
     private int getIndex(K key) {
-        int index = key.hashCode();
+        int index = key.hashCode() % currentAllocation();
 
         while (nodes.get(index) != null)
             index = getNextIndex(index);
@@ -89,7 +90,7 @@ public class Map<K, V> implements Iterable<Pair<K, V>> {
     }
 
     private Pair<Integer, MapNode<K, V>> getNode(K key) {
-        int index = key.hashCode();
+        int index = key.hashCode() % currentAllocation();
         MapNode<K, V> target = nodes.get(index);
 
         for (int i = 0; target != null && !target.key.equals(key); i++) {
@@ -108,7 +109,7 @@ public class Map<K, V> implements Iterable<Pair<K, V>> {
     }
 
     @Override
-    public Iterator<Pair<K, V>> iterator() {
+    public MapIterator<K, V> iterator() {
         return new MapIterator<>(nodes);
     }
 

@@ -5,12 +5,6 @@ class ListNode<T> {
     private ListNode<T> next;
     private ListNode<T> prev;
 
-    public ListNode(T i, ListNode<T> next) {
-        this.prev = null;
-        this.i = i;
-        this.next = next;
-    }
-
     public ListNode(ListNode<T> prev, T i, ListNode<T> next) {
         this.prev = prev;
         this.i = i;
@@ -24,10 +18,6 @@ class ListNode<T> {
 
     public T getItem() {
         return this.i;
-    }
-
-    public boolean hasNext() {
-        return this.next != null;
     }
 
     public ListNode<T> next() {
