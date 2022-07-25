@@ -18,7 +18,7 @@ language.
 - [ ] Regular: (in RAM)
     - [x] Heap
     - [x] List
-    - [ ] Map
+    - [x] Map
     - [ ] Binary Tree
 - [ ] External (in file)
     - [ ] Heap
