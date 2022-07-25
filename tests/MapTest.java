@@ -6,8 +6,7 @@ import src.Map;
 import src.Pair;
 import src.Primes;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MapTest {
     Map<Integer, String> map;
@@ -80,6 +79,20 @@ public class MapTest {
         }
 
         assertEquals(i, max);
+    }
+
+    @Test
+    void getNotExistingItem() {
+        assertThrows(IllegalArgumentException.class, () -> map.get(0));
+    }
+
+    @Test
+    void unset() {
+        fullMap();
+
+        map.unset(0);
+
+        assertThrows(IllegalArgumentException.class, () -> map.get(0));
     }
 
     /*

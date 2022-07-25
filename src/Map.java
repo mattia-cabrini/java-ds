@@ -80,22 +80,27 @@ public class Map<K, V> implements Iterable<Pair<K, V>> {
     }
 
     public V get(K key) {
-        int i = 0;
+        Pair<Integer, MapNode<K, V>> target = getNode(key);
+
+        if (target.b == null)
+            throw new IllegalArgumentException("Key " + key + " is not set.");
+
+        return target.b.value;
+    }
+
+    private Pair<Integer, MapNode<K, V>> getNode(K key) {
         int index = key.hashCode();
         MapNode<K, V> target = nodes.get(index);
 
-        while (target != null && !target.key.equals(key)) {
+        for (int i = 0; target != null && !target.key.equals(key); i++) {
             index = getNextIndex(index);
             target = nodes.get(index);
-            ++i;
 
-            if (i > currentAllocation()) {
+            if (i > currentAllocation())
                 target = null;
-                break;
-            }
         }
 
-        return target != null ? target.value : null;
+        return new Pair<>(index, target);
     }
 
     public int getCount() {
@@ -105,5 +110,13 @@ public class Map<K, V> implements Iterable<Pair<K, V>> {
     @Override
     public Iterator<Pair<K, V>> iterator() {
         return new MapIterator<>(nodes);
+    }
+
+    public void unset(K key) {
+        Pair<Integer, MapNode<K, V>> target = getNode(key);
+
+        if (target.b != null) {
+            nodes.set(target.a, null);
+        }
     }
 }
