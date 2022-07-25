@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import src.Heap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,12 +39,7 @@ class HeapTest {
         for (int i = 0; i < max; ++i)
             heap.add(i);
 
-        try {
-            heap.add(max);
-            fail();
-        } catch (Exception e) {
-            //
-        }
+        assertThrows(Exception.class, () -> heap.add(max));
     }
 
     @Test
@@ -65,11 +61,6 @@ class HeapTest {
 
     @Test
     void popOnEmpty() {
-        try {
-            heap.pop();
-            fail();
-        } catch (Exception ex) {
-            //
-        }
+        assertThrows(Exception.class, () -> heap.pop());
     }
 }
