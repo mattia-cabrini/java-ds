@@ -1,5 +1,6 @@
-package tests;
+package src.test;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import src.Map;
@@ -8,7 +9,7 @@ import src.Primes;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MapTest {
+public class TestMap {
     Map<Integer, String> map;
     int max = 160000;
 
@@ -24,7 +25,7 @@ public class MapTest {
 
     @Test
     void emptyMapPrime() {
-        assertEquals(Primes.get(0), map.currentAllocation());
+        Assertions.assertEquals(Primes.get(0), map.currentAllocation());
     }
 
     @Test
