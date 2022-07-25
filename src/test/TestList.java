@@ -1,13 +1,12 @@
-package tests;
+package src.test;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import src.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ListTest {
+public class TestList {
     List<Integer> list;
     final int max = 1000;
 

@@ -1,13 +1,12 @@
-package tests;
+package src.test;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import src.Heap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HeapTest {
+class TestHeap {
     Heap<Integer> heap;
     final int max = 1000;
     final Integer negInfinity = -1;
