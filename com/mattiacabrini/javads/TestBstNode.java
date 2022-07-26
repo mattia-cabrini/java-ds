@@ -130,7 +130,7 @@ class TestBstNode {
         BstNode<Integer> root = sentinel;
 
         for (int i = 0; i < max; ++i) {
-            root = root.insertR(i, root, sentinel);
+            root = root.insertR(i, sentinel, sentinel);
         }
 
         part0toMax(root);
@@ -141,7 +141,7 @@ class TestBstNode {
         BstNode<Integer> root = sentinel;
 
         for (int i = -1; i > -max-1; --i) {
-            root = root.insertR(i, root, sentinel);
+            root = root.insertR(i, sentinel, sentinel);
         }
 
         part0toMax(root);
@@ -159,7 +159,7 @@ class TestBstNode {
         BstNode<Integer> root = sentinel;
 
         for (int i = 0; i < max - 1; ++i) {
-            root = root.insertR(i, root, sentinel);
+            root = root.insertR(i, sentinel, sentinel);
         }
 
         BstNode<Integer> rootF = root;
@@ -172,7 +172,7 @@ class TestBstNode {
         BstNode<Integer> root = sentinel;
 
         for (int i = 0; i < 1024-1; ++i) {
-            root = root.insertR(i, root, sentinel);
+            root = root.insertR(i, sentinel, sentinel);
         }
 
         root = root.balance(sentinel);
@@ -212,5 +212,98 @@ class TestBstNode {
             assertEquals(root.getLeft().getCount(), i);
             assertTrue(root.selfCheck(sentinel));
         }
+    }
+
+    @Test
+    void depth() {
+        assertEquals(sentinel.depthR(sentinel, 0), 0);
+    }
+
+    @Test
+    void depthOfRoot() {
+        BstNode<Integer> root = new BstNode<>(sentinel, 0, 1, sentinel, sentinel);
+        assertEquals(root.depthR(sentinel, 0), 1);
+    }
+
+    @Test
+    void depthOfBstTree() {
+        BstNode<Integer> root = getRootToJoin(0, -2, 1, -3, -1, -4);
+
+        assertTrue(root.selfCheck(sentinel));
+        assertEquals(root.depthR(sentinel, 0), 4);
+    }
+
+    @Test
+    void joinRight() {
+        BstNode<Integer> nodeJoin;
+
+        BstNode<Integer> root = getRootToJoin(0, -2, 1, -3, -1, -4);
+        BstNode<Integer> root2 = getRootToJoin(6, 4, 7, 3, 5, 2);
+
+        nodeJoin = root.joinR(root2, sentinel);
+        assertTrue(nodeJoin.selfCheck(sentinel));
+    }
+
+    @Test
+    void joinLeft() {
+        BstNode<Integer> nodeJoin;
+
+        BstNode<Integer> root = getRootToJoin(0, -2, 1, -3, -1, -4);
+        BstNode<Integer> root2 = getRootToJoin(6, 4, 7, 3, 5, 2);
+
+        nodeJoin = root2.joinR(root, sentinel);
+        assertTrue(nodeJoin.selfCheck(sentinel));
+    }
+
+    @Test
+    void joinSelf() {
+        BstNode<Integer> root = getRootToJoin(0, -2, 1, -3, -1, -4);
+
+        assertThrows(IllegalArgumentException.class, () -> root.joinR(root, sentinel));
+    }
+
+    private BstNode<Integer> getRootToJoin(int x, int x1, int x2, int x3, int x4, int x5) {
+        BstNode<Integer> root = new BstNode<>(sentinel, x, 6, sentinel, sentinel);
+        BstNode<Integer> l = new BstNode<>(root, x1, 4, sentinel, sentinel);
+        BstNode<Integer> r = new BstNode<>(root, x2, 1, sentinel, sentinel);
+        BstNode<Integer> ll = new BstNode<>(l, x3, 2, sentinel, sentinel);
+        BstNode<Integer> lr = new BstNode<>(l, x4, 1, sentinel, sentinel);
+        BstNode<Integer> lll = new BstNode<>(ll, x5, 1, sentinel, sentinel);
+
+        root.setLeft(l);
+        root.setRight(r);
+        l.setLeft(ll);
+        l.setRight(lr);
+        ll.setLeft(lll);
+
+        assertTrue(root.selfCheck(sentinel));
+
+        return root;
+    }
+
+    @Test
+    void joinNull() {
+        BstNode<Integer> nodeJoin;
+
+        BstNode<Integer> root = getRootToJoin(0, -2, 1, -3, -1, -4);
+
+        assertTrue(root.selfCheck(sentinel));
+
+        nodeJoin = root.joinR(null, sentinel);
+        assertEquals(nodeJoin, root);
+        assertTrue(nodeJoin.selfCheck(sentinel));
+    }
+
+    @Test
+    void joinSentinel() {
+        BstNode<Integer> nodeJoin;
+
+        BstNode<Integer> root = getRootToJoin(0, -2, 1, -3, -1, -4);
+
+        assertTrue(root.selfCheck(sentinel));
+
+        nodeJoin = root.joinR(sentinel, sentinel);
+        assertEquals(nodeJoin, root);
+        assertTrue(nodeJoin.selfCheck(sentinel));
     }
 }

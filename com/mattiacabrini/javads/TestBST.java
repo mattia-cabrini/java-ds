@@ -51,6 +51,12 @@ class TestBST {
         assertFalse(new BST<Integer>().search(-1));
     }
 
+    @Test
+    void depthOfBST() {
+        fill(0, 11);
+        assertEquals(11, bst.depth());
+    }
+
     private void fill(int low, int up) {
         for (int i = low; i < up; ++i)
             bst.insert(i);

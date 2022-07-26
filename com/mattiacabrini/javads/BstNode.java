@@ -1,6 +1,7 @@
 package com.mattiacabrini.javads;
 
-import org.junit.jupiter.api.Test;
+import static java.lang.Math.log;
+import static java.lang.Math.max;
 
 class BstNode<T extends Comparable<T>> {
     BstNode<T> prev;
@@ -166,13 +167,11 @@ class BstNode<T extends Comparable<T>> {
     }
 
     public boolean isBalanced(BstNode<T> sentinel) {
-        if (this == sentinel)
-            return true;
+        return depthR(sentinel, 0) == minLevels();
+    }
 
-        if (left.count != right.count)
-            return false;
-
-        return left.isBalanced(sentinel) && right.isBalanced(sentinel);
+    private int minLevels() {
+        return (int) (log(count + 1) / log(2));
     }
 
     public BstNode<T> balance(BstNode<T> sentinel) {
@@ -187,5 +186,41 @@ class BstNode<T extends Comparable<T>> {
         n.right = n.right.balance(sentinel);
 
         return n;
+    }
+
+    public int depthR(BstNode<T> sentinel, int i) {
+        if (this == sentinel)
+            return i;
+
+        return max(
+                left.depthR(sentinel, i + 1),
+                right.depthR(sentinel, i + 1)
+        );
+    }
+
+    public BstNode<T> joinR(BstNode<T> node, BstNode<T> sentinel) {
+        if (this == sentinel)
+            return node;
+
+        if (node == null || node == sentinel)
+            return this;
+
+        if (this == node)
+            throw new IllegalArgumentException("Cannot join a tree with itself");
+
+        int cmp = item.compareTo(node.getItem());
+
+        if (cmp < 0) {
+            right = right.joinR(node, sentinel);
+            right.prev = this;
+        }
+
+        else if (cmp > 0) {
+            left = left.joinR(node, sentinel);
+            left.prev = this;
+        }
+
+        count = left.count + right.count + 1;
+        return this;
     }
 }
