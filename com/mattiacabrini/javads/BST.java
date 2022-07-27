@@ -50,6 +50,10 @@ public class BST<T extends Comparable<T>> {
         return root.depthR(sentinel, 0);
     }
 
+    public void delete(T i) {
+        root = root.delete(i, sentinel);
+    }
+
     /*
      * TODO Delete
      */

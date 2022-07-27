@@ -57,6 +57,31 @@ class TestBST {
         assertEquals(11, bst.depth());
     }
 
+    @Test
+    void deleteNotExistent() {
+        assertThrows(IllegalArgumentException.class, () -> bst.delete(0));
+        assertTrue(bst.selfCheck());
+        assertEquals(0, bst.getCount());
+    }
+
+    @Test
+    void deleteExistingLeaf() {
+        fill(0, 11);
+        bst.delete(10);
+        assertTrue(bst.selfCheck());
+        assertEquals(10, bst.getCount());
+    }
+
+    @Test
+    void deleteExistingMiddle() {
+        fill(0, 1024);
+        bst.balance();
+        assertTrue(bst.selfCheck());
+        bst.delete(10);
+        assertTrue(bst.selfCheck());
+        assertEquals(1023, bst.getCount());
+    }
+
     private void fill(int low, int up) {
         for (int i = low; i < up; ++i)
             bst.insert(i);

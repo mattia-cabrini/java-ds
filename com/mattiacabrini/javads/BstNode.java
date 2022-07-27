@@ -223,4 +223,34 @@ class BstNode<T extends Comparable<T>> {
         count = left.count + right.count + 1;
         return this;
     }
+
+    public BstNode<T> delete(T i, BstNode<T> sentinel) {
+        if (this == sentinel)
+            throw new IllegalArgumentException("Cannot delete not existing item " + i);
+
+        BstNode<T> toReturn = this;
+        int cmp = item.compareTo(i);
+
+        if (cmp < 0) {
+            right = right.delete(i, sentinel);
+            right.prev = this;
+            fixCount();
+        }
+
+        else if (cmp > 0) {
+            left = left.delete(i, sentinel);
+            left.prev = this;
+            fixCount();
+        }
+
+        else {
+            toReturn = left.joinR(right, sentinel);
+        }
+
+        return toReturn;
+    }
+
+    private void fixCount() {
+        this.count = left.count + right.count + 1;
+    }
 }
