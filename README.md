@@ -19,8 +19,8 @@ language.
     - [x] Heap
     - [x] List
     - [x] Map
-    - [ ] Binary Tree
-- [ ] External (in file)
+    - [x] Binary Tree
+- [ ] External (in file) (October 2022)
     - [ ] Heap
     - [ ] List
     - [ ] Map

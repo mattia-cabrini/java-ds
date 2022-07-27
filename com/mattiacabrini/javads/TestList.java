@@ -1,4 +1,4 @@
-package com.mattiacabrini.javads.test;
+package com.mattiacabrini.javads;
 
 import com.mattiacabrini.javads.ListIterator;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,7 +7,7 @@ import com.mattiacabrini.javads.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestList {
+class TestList {
     List<Integer> list;
     final int max = 1000;
 
@@ -213,7 +213,7 @@ public class TestList {
 
         ListIterator<Integer> iterator = list.iterator();
 
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             jx = iterator.next();
             assertEquals(i, jx);
             i++;

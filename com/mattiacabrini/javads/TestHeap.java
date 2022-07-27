@@ -1,4 +1,4 @@
-package com.mattiacabrini.javads.test;
+package com.mattiacabrini.javads;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

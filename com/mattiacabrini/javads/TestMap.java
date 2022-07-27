@@ -1,4 +1,4 @@
-package com.mattiacabrini.javads.test;
+package com.mattiacabrini.javads;
 
 import com.mattiacabrini.javads.MapIterator;
 import org.junit.jupiter.api.Assertions;
@@ -12,7 +12,7 @@ import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestMap {
+class TestMap {
     Map<Integer, String> map;
     int max = 160000;
 
